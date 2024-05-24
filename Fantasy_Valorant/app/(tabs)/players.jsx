@@ -1,8 +1,8 @@
-import { View, Text, ScrollView, StyleSheet, Image} from 'react-native'
+import { View, Text, ScrollView, StyleSheet, Image, Pressable} from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { images } from '../../constants'
-
+import { router } from 'expo-router'
 
 
 const Row = ({ children }) => (
@@ -15,8 +15,13 @@ const players = () => {
         <Text className="text-3xl text-white font-bold mt-10" style={{textAlign: 'center'}}>Choose a team</Text>
         <View style={styles.app}>
           <Row>
-            <View style={styles.col}> 
-              <Image source={images.liquid} className="w-[330px] h-[200px]" resizeMode="contain" />
+            <View style={styles.col} > 
+              <Pressable onPress={() => router.push('/playerinfo')}>
+                <Image source={images.liquid} className="w-[330px] h-[200px]" resizeMode="contain" />
+              </Pressable>
+                
+             
+              
             </View>
             <View style={styles.col}> 
               <Image source={images.navi} className="w-[250px] h-[140px]" resizeMode="contain" />
@@ -24,15 +29,15 @@ const players = () => {
           </Row>
           <Row>
             <View style={styles.col}> 
-              <Image source={images.fnatic} className="w-[150px] h-[90px]" resizeMode="contain" />
+              <Image source={images.fnatic} className="w-[330px] h-[200px]" resizeMode="contain" />
             </View>
             <View style={styles.col}> 
-              <Image source={images.heretics} className="w-[310px] h-[190px]" resizeMode="contain" />
+              <Image source={images.heretics} className="w-[320px] h-[200px]" resizeMode="contain" />
             </View>
           </Row>
           <Row>
             <View style={styles.col}> 
-              <Image source={images.kc} className="w-[270px] h-[150px]" resizeMode="contain" />
+              <Image source={images.kc} className="w-[320px] h-[200px]" resizeMode="contain" />
             </View>
             <View style={styles.col}> 
               <Image source={images.fut} className="w-[330px] h-[200px]" resizeMode="contain" />
@@ -81,10 +86,6 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center'
     
-  },
-  images:{
-    width: 350,
-    resizeMode: 'contain'
   }
     
 

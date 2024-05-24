@@ -12,5 +12,6 @@ import navi from "../assets/images/teams/navi.png"
 import fut from "../assets/images/teams/fut.png"
 import kc from "../assets/images/teams/kc.png"
 import heretics from "../assets/images/teams/heretics.png"
+import munchkin from "../assets/images/players/munchkin.png"
 
-export default { profile, thumbnail, cards, path, logo, logoSmall, empty, jett, liquid, fnatic, navi, fut, kc, heretics };
+export default { profile, thumbnail, cards, path, logo, logoSmall, empty, jett, liquid, fnatic, navi, fut, kc, heretics, munchkin };

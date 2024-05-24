@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { ScrollView, StyleSheet, Text, View, Image, Button } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, Image, Button, Pressable } from 'react-native';
 import { Link, Redirect, router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { images } from '../constants';
@@ -24,15 +24,32 @@ export default function App() {
           <View className="relative mt-5 ">
             <Text className="text-3xl text-white font-bold text-center">Emerse yourself in the world of
               <Text className=" text-fuchsia-400"> Fantasy Valorant</Text>
-            
-              <Button title='Sign In' color='#4a2574' onPress={() => router.push('/sign-in')} />
-            </Text>
-
-            
+            </Text>         
           </View>
+
+          
+          <Pressable onPress={() => router.push('/sign-in')}
+            style={styles.signin}
+            className="w-full justify-center text-justify">
+            <Text className=" text-lg" style={{textAlign: 'center', color: '#0f0529'}}>Sign in</Text>
+          </Pressable>
         </View>
       </ScrollView>
+      <StatusBar backgroundColor='#0f0529' style="light"/>
     </SafeAreaView>
   );
 }
 
+const styles = StyleSheet.create({
+  signin: {
+    marginTop: 50,
+    width: '100%',
+    borderRadius: 5,
+    borderWidth: 1,
+    height: 50,
+    borderColor: 'white',
+    backgroundColor: 'white'
+  
+  },
+
+});
