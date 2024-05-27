@@ -15,27 +15,33 @@ const team = () => {
       <Text className="text-3xl text-white font-bold mt-10" style={{textAlign: 'center'}}>Your team</Text>
       <View style={styles.app}>
             <View style={styles.col} > 
-              <Pressable >
-                <Image source={images.liquid} className="w-[100px] h-[100px]" resizeMode="contain" />
+              <Pressable onPress={() => router.push('/searchplayer')}>
+                <Image source={images.munchkin} className="w-[100px] h-[100px]" resizeMode="contain" />
               </Pressable>
               
              
               
             </View>
             <View style={styles.col}> 
-              <Image source={images.navi} className="w-[100px] h-[100px]" resizeMode="contain" />
+              <Image source={images.munchkin} className="w-[100px] h-[100px]" resizeMode="contain" />
             </View>
           
           
             <View style={styles.col}> 
-              <Image source={images.fnatic} className="w-[100px] h-[100px]" resizeMode="contain" />
+              <Image source={images.munchkin} className="w-[100px] h-[100px]" resizeMode="contain" />
             </View>
             <View style={styles.col}> 
-              <Image source={images.heretics} className="w-[100px] h-[100px]" resizeMode="contain" />
+              <Image source={images.munchkin} className="w-[100px] h-[100px]" resizeMode="contain" />
             </View>
             <View style={styles.col}> 
-              <Image source={images.heretics} className="w-[100px] h-[100px]" resizeMode="contain" />
+              <Image source={images.munchkin} className="w-[100px] h-[100px]" resizeMode="contain" />
             </View>
+
+            <Pressable onPress={() => router.push('/sign-up')}
+              style={styles.button}
+              className="w-full justify-center text-justify mt-10">
+              <Text className=" text-lg" style={{textAlign: 'center', color: '#0f0529'}}>Save team</Text>
+            </Pressable>
       </View>
     </ScrollView>
 
@@ -59,6 +65,15 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     
+  },
+  button: {
+    marginTop: 50,
+    width: '60%',
+    borderRadius: 5,
+    borderWidth: 1,
+    height: 50,
+    borderColor: 'white',
+    backgroundColor: 'white'
   },
     
 

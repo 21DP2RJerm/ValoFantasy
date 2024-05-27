@@ -16,7 +16,7 @@ const players = () => {
         <View style={styles.app}>
           <Row>
             <View style={styles.col} > 
-              <Pressable onPress={() => router.push('/playerinfo')}>
+              <Pressable onPress={() => router.push('/teaminfo')}>
                 <Image source={images.liquid} className="w-[330px] h-[200px]" resizeMode="contain" />
               </Pressable>
                 

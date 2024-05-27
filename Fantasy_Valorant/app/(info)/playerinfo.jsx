@@ -16,12 +16,7 @@ const playerinfo = () => {
         <View style={styles.app}>
           <Row>
             <View style={styles.col} > 
-              <Pressable >
-                <Image source={images.munchkin} className="w-[350px] h-[220px]" resizeMode="contain" />
-              </Pressable>
-                
-             
-              
+              <Image source={images.munchkin} className="w-[350px] h-[220px]" resizeMode="contain" />
             </View>
             <View style={styles.col2}> 
               <Image source={images.navi} className="w-[250px] h-[140px]" resizeMode="contain" />
