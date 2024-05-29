@@ -9,13 +9,13 @@ use App\Http\Controllers\Api\ApiController;
 //})->middleware('auth:sanctum');
 
 // Open routes
-Route::post("resgister", [ApiController::class, "register"]);
+Route::post("register", [ApiController::class, "register"]);
 
 Route::post("login", [ApiController::class, "login"]);
 
 // Protected routes
 Route::group([
-    "middleware" => ["auth.api"]
+    "middleware" => ["auth:api"]
 ], function(){
 
     Route::get("profile", [ApiController::class, "profile"]);
