@@ -13,6 +13,10 @@ Route::post("register", [ApiController::class, "register"]);
 
 Route::post("login", [ApiController::class, "login"]);
 
+Route::post("createPlayer", [ApiController::class, "createPlayer"]);
+Route::post("createTeam", [ApiController::class, "createTeam"]);
+Route::post("fantasyTeam", [ApiController::class, "fantasyTeam"]);
+
 // Protected routes
 Route::group([
     "middleware" => ["auth:api"]

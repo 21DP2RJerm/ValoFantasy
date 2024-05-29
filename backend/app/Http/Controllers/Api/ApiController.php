@@ -5,8 +5,12 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Team;
+use App\Models\Player;
+use App\Models\fantasyTeam;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+
 
 
 class ApiController extends Controller
@@ -92,6 +96,76 @@ class ApiController extends Controller
         return response()->json([
             "status" => true,
             "messages" => "User logged out"
+        ]);
+    }
+
+    public function createPlayer(Request $request){
+        
+        // Data validation
+        $request->validate([
+            "name" => "required",
+            "country" => "required|",
+            "achievments" => "required|",
+            "team" => "required|"
+        ]);
+        
+        //Create player
+
+        Player::create([
+            "name" => $request->name,
+            "country" => $request->country,
+            "achievments" => $request->achievments,
+            "team" => $request->team,
+        ]);
+
+        return response() -> json([
+            "status" => true,
+            "message" => "Player created succesfully"
+        ]);
+
+
+
+    }
+
+    public function createTeam(Request $request){
+
+        $request->validate([
+            "name"=>"required",
+            "country" => "required"
+        ]);
+
+        Team::create([
+            "name" => $request->name,
+            "country" => $request->country
+        ]);
+
+        return response() ->json([
+            "status" => true,
+            "message" => "Team has been created"
+        ]);
+    }
+
+    public function fantasyTeam(Request $request){
+
+        $request->validate([
+            "player1" => "required",
+            "player2" => "required",
+            "player3" => "required",
+            "player4" => "required",
+            "player5" => "required"
+        ]);
+
+        fantasyTeam::create([
+            "player1" => $request ->player1,
+            "player2" => $request ->player2,
+            "player3" => $request ->player3,
+            "player4" => $request ->player4,
+            "player5" => $request ->player5
+        ]);
+
+        return response() ->json([
+            "status" => true,
+            "message" => "Fantasy Team has been created"
         ]);
     }
 }
