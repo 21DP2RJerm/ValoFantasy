@@ -152,7 +152,8 @@ class ApiController extends Controller
             "player2" => "required",
             "player3" => "required",
             "player4" => "required",
-            "player5" => "required"
+            "player5" => "required",
+            "user" => "required"
         ]);
 
         fantasyTeam::create([
@@ -160,7 +161,8 @@ class ApiController extends Controller
             "player2" => $request ->player2,
             "player3" => $request ->player3,
             "player4" => $request ->player4,
-            "player5" => $request ->player5
+            "player5" => $request ->player5,
+            "user" => $request ->user
         ]);
 
         return response() ->json([
