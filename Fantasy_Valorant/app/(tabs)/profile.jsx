@@ -13,16 +13,18 @@ const profile = () => {
   return (
     <SafeAreaView className="h-full" style={{backgroundColor:'#0f0529'}}>
       <ScrollView>
-        <Text className="text-3xl text-white font-bold mt-10" style={{textAlign: 'center'}}>Player</Text>
+      <Text className="text-3xl text-white font-bold mt-10" style={{textAlign: 'center'}}>Username</Text>
         <View style={styles.app}>
           <Row>
             <View style={styles.col} > 
-              <Image source={images.munchkin} className="w-[350px] h-[220px]" resizeMode="contain" />           
+              <Image source={images.boaster} className="w-[350px] h-[220px]" resizeMode="contain" />
             </View>
           </Row>
 
           <Text className="text-3xl text-white font-bold mt-10" style={{textAlign: 'center'}}>Points:</Text>
-          <Text className="text-3xl text-white font-bold " style={{textAlign: 'center'}}>2</Text>
+          <Text className="text-3xl text-white font-bold " style={{textAlign: 'center'}}>254</Text>
+          <Text className="text-3xl text-white font-bold mt-10" style={{textAlign: 'center'}}>Highest placement:</Text>
+          <Text className="text-3xl text-white font-bold " style={{textAlign: 'center'}}>5th</Text>
 
         </View>
       </ScrollView>
@@ -33,32 +35,26 @@ const profile = () => {
 
 const styles = {
   app: {
-    flex: 4,
+    flex: 1,
     marginHorizontal: "auto",
     width: 350,
+    justifyContent: 'center',
+    alignItems: 'center',
 
   },
   row: {
     flexDirection: "row"
   },
   col:  {
-    borderColor:  "#ffffff",
-    borderWidth:  1,
-    flex:  2,
+    borderWidth:2,
+    borderColor: '#ffffff',
     borderRadius: 5,
     marginTop: 10,
+    paddingRight: 10,
     justifyContent: 'center',
     alignItems: 'center',
+    width: '50%'
   },
-  col2:  {
-    flex:  2,
-    borderRadius: 5,
-    margin: 10,
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
-    
-
 };
 
 export default profile

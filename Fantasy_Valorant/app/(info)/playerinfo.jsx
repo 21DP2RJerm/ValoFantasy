@@ -12,23 +12,23 @@ const playerinfo = () => {
   return (
     <SafeAreaView className="h-full" style={{backgroundColor:'#0f0529'}}>
       <ScrollView>
-        <Text className="text-3xl text-white font-bold mt-10" style={{textAlign: 'center'}}>Munchkin</Text>
+        <Text className="text-3xl text-white font-bold mt-10" style={{textAlign: 'center'}}>Boaster</Text>
         <View style={styles.app}>
           <Row>
             <View style={styles.col} > 
-              <Image source={images.munchkin} className="w-[350px] h-[220px]" resizeMode="contain" />
+              <Image source={images.boaster} className="w-[350px] h-[220px]" resizeMode="contain" />
             </View>
             <View style={styles.col2}> 
-              <Image source={images.navi} className="w-[250px] h-[140px]" resizeMode="contain" />
+              <Image source={images.fnatic} className="w-[250px] h-[140px]" resizeMode="contain" />
             </View>
           </Row>
 
           <Text className="text-3xl text-white font-bold mt-10" style={{textAlign: 'center'}}>Real name:</Text>
-          <Text className="text-3xl text-white font-bold " style={{textAlign: 'center'}}>Tingus Pingus</Text>
+          <Text className="text-3xl text-white font-bold " style={{textAlign: 'center'}}>Jake Howlett</Text>
           <Text className="text-3xl text-white font-bold mt-10" style={{textAlign: 'center'}}>Team:</Text>
-          <Text className="text-3xl text-white font-bold " style={{textAlign: 'center'}}>GENG</Text>
+          <Text className="text-3xl text-white font-bold " style={{textAlign: 'center'}}>FNATIC</Text>
           <Text className="text-3xl text-white font-bold mt-10" style={{textAlign: 'center'}}>Achievments:</Text>
-          <Text className="text-3xl text-white font-bold " style={{textAlign: 'center'}}>VCT Pacific Winner</Text>
+          <Text className="text-3xl text-white font-bold " style={{textAlign: 'center'}}>VCT Lock In Champion, VCT Masters Tokyo 2023 Champion</Text>
 
         </View>
       </ScrollView>
@@ -48,11 +48,12 @@ const styles = {
     flexDirection: "row"
   },
   col:  {
-    borderColor:  "#ffffff",
-    borderWidth:  1,
-    flex:  2,
+    borderWidth:2,
+    borderColor: '#ffffff',
     borderRadius: 5,
+    flex:  2,
     marginTop: 10,
+    paddingRight: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },

@@ -15,21 +15,23 @@ const players = () => {
         <Text className="text-3xl text-white font-bold mt-10" style={{textAlign: 'center'}}>Choose a team</Text>
         <View style={styles.app}>
           <Row>
-            <View style={styles.col} > 
-              <Pressable onPress={() => router.push('/teaminfo')}>
-                <Image source={images.liquid} className="w-[330px] h-[200px]" resizeMode="contain" />
+            <View style={styles.col } > 
+              <Pressable onPress={() => router.push('/teaminfo')} >
+                <Image source={images.fnatic} className="w-[270px] h-[150px]" resizeMode="contain" />
               </Pressable>
                 
              
               
             </View>
             <View style={styles.col}> 
-              <Image source={images.navi} className="w-[250px] h-[140px]" resizeMode="contain" />
+              <Pressable onPress={() => router.push('/teaminfo')}>
+                <Image source={images.navi} className="w-[250px] h-[140px]" resizeMode="contain" />
+              </Pressable>     
             </View>
           </Row>
           <Row>
             <View style={styles.col}> 
-              <Image source={images.fnatic} className="w-[330px] h-[200px]" resizeMode="contain" />
+              <Image source={images.liquid} className="w-[330px] h-[200px]" resizeMode="contain" />
             </View>
             <View style={styles.col}> 
               <Image source={images.heretics} className="w-[320px] h-[200px]" resizeMode="contain" />
@@ -45,18 +47,18 @@ const players = () => {
           </Row>
           <Row>
             <View style={styles.col}> 
-              <Image source={images.liquid} className="w-[330px] h-[200px]" resizeMode="contain" />
+              <Image source={images.bbl} className="w-[260px] h-[150px]" resizeMode="contain" />
             </View>
             <View style={styles.col}> 
-              <Image source={images.liquid} className="w-[330px] h-[200px]" resizeMode="contain" />
+              <Image source={images.giantx} className="w-[300px] h-[170px]" resizeMode="contain" />
             </View>
           </Row>
           <Row>
             <View style={styles.col}> 
-              <Image source={images.liquid} className="w-[330px] h-[200px]" resizeMode="contain" />
+              <Image source={images.koi} className="w-[330px] h-[200px]" resizeMode="contain" />
             </View>
             <View style={styles.col}> 
-              <Image source={images.liquid} className="w-[330px] h-[200px]" resizeMode="contain" />
+              <Image source={images.gm8} className="w-[330px] h-[200px]" resizeMode="contain" />
             </View>
           </Row>
         </View>

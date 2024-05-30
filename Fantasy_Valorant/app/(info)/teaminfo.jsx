@@ -9,16 +9,16 @@ const teaminfo = () => {
   return (
      <SafeAreaView className="h-full" style={{backgroundColor:'#0f0529'}}>
       <ScrollView>
-        <Text className="text-3xl text-white font-bold mt-10" style={{textAlign: 'center'}}>GENG</Text>
+        <Text className="text-3xl text-white font-bold mt-10" style={{textAlign: 'center'}}>FNATIC</Text>
 
         <View styles={{    justifyContent: 'center', alignItems: 'center', flex: 1}}>
-          <Image source={images.liquid} style={{alignSelf: 'center'}} className="w-[200px] h-[200px] mt-5" resizeMode="contain"/>
+          <Image source={images.fnatic} style={{alignSelf: 'center'}} className="w-[200px] h-[200px] mt-5" resizeMode="contain"/>
         </View>
 
         <View style={styles.app}>
               <View style={styles.col} > 
                 <Pressable onPress={() => router.push('/playerinfo')} >
-                  <Image source={images.munchkin} className="w-[100px] h-[100px]" resizeMode="contain" />
+                  <Image source={images.boaster} className="w-[100px] h-[100px]" resizeMode="contain" />
                 </Pressable>
                 
               
@@ -26,24 +26,24 @@ const teaminfo = () => {
               </View>
               <View style={styles.col}> 
                 <Pressable onPress={() => router.push('/playerinfo')} >
-                  <Image source={images.munchkin} className="w-[100px] h-[100px]" resizeMode="contain" />
+                  <Image source={images.leo} className="w-[100px] h-[100px]" resizeMode="contain" />
                 </Pressable>
               </View>
             
             
               <View style={styles.col}> 
                 <Pressable onPress={() => router.push('/playerinfo')} >
-                  <Image source={images.munchkin} className="w-[100px] h-[100px]" resizeMode="contain" />
+                  <Image source={images.alfajer} className="w-[100px] h-[100px]" resizeMode="contain" />
                 </Pressable>
               </View>
               <View style={styles.col}> 
                 <Pressable onPress={() => router.push('/playerinfo')} >
-                  <Image source={images.munchkin} className="w-[100px] h-[100px]" resizeMode="contain" />
+                  <Image source={images.chronicle} className="w-[100px] h-[100px]" resizeMode="contain" />
                 </Pressable>
               </View>
               <View style={styles.col}> 
                 <Pressable onPress={() => router.push('/playerinfo')} >
-                  <Image source={images.munchkin} className="w-[100px] h-[100px]" resizeMode="contain" />
+                  <Image source={images.derke} className="w-[100px] h-[100px]" resizeMode="contain" />
                 </Pressable>
               </View>
         </View>

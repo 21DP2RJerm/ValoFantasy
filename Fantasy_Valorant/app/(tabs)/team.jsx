@@ -16,28 +16,31 @@ const team = () => {
       <View style={styles.app}>
             <View style={styles.col} > 
               <Pressable onPress={() => router.push('/searchplayer')}>
-                <Image source={images.munchkin} className="w-[100px] h-[100px]" resizeMode="contain" />
-              </Pressable>
-              
-             
-              
+                <Image source={images.chronicle} className="w-[100px] h-[100px]" resizeMode="contain" />
+              </Pressable> 
             </View>
-            <View style={styles.col}> 
-              <Image source={images.munchkin} className="w-[100px] h-[100px]" resizeMode="contain" />
+            <View style={styles.col} > 
+              <Pressable onPress={() => router.push('/searchplayer')}>
+                <Image source={images.boaster} className="w-[100px] h-[100px]" resizeMode="contain" />
+              </Pressable> 
             </View>
-          
-          
-            <View style={styles.col}> 
-              <Image source={images.munchkin} className="w-[100px] h-[100px]" resizeMode="contain" />
+            <View style={styles.col} > 
+              <Pressable onPress={() => router.push('/searchplayer')}>
+                <Image source={images.leo} className="w-[100px] h-[100px]" resizeMode="contain" />
+              </Pressable> 
             </View>
-            <View style={styles.col}> 
-              <Image source={images.munchkin} className="w-[100px] h-[100px]" resizeMode="contain" />
+            <View style={styles.col} > 
+              <Pressable onPress={() => router.push('/searchplayer')}>
+                <Image source={images.alfajer} className="w-[100px] h-[100px]" resizeMode="contain" />
+              </Pressable> 
             </View>
-            <View style={styles.col}> 
-              <Image source={images.munchkin} className="w-[100px] h-[100px]" resizeMode="contain" />
+            <View style={styles.col} > 
+              <Pressable onPress={() => router.push('/searchplayer')}>
+                <Image source={images.derke} className="w-[100px] h-[100px]" resizeMode="contain" />
+              </Pressable> 
             </View>
 
-            <Pressable onPress={() => router.push('/sign-up')}
+            <Pressable
               style={styles.button}
               className="w-full justify-center text-justify mt-10">
               <Text className=" text-lg" style={{textAlign: 'center', color: '#0f0529'}}>Save team</Text>
