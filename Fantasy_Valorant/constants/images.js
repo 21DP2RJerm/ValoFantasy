@@ -22,6 +22,6 @@ import leo from "../assets/images/players/leo.png"
 import derke from "../assets/images/players/derke.png"
 import alfajer from "../assets/images/players/alfajer.png"
 import chronicle from "../assets/images/players/chronicle.png"
-import vflogo from "../assets/images/vflogo.png"
 
-export default { profile, thumbnail, cards, path, logo, logoSmall, empty, jett, liquid, fnatic, navi, fut, kc, heretics, munchkin, vflogo, bbl, giantx, gm8, koi, boaster, leo, derke,alfajer, chronicle };
+
+export default { profile, thumbnail, cards, path, logo, logoSmall, empty, jett, liquid, fnatic, navi, fut, kc, heretics, munchkin, bbl, giantx, gm8, koi, boaster, leo, derke,alfajer, chronicle };

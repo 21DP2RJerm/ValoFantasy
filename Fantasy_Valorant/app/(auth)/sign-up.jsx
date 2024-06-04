@@ -1,14 +1,33 @@
+
 import { View, Text, ScrollView, Image, TextInput, StyleSheet, Button, Pressable } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import {images} from '../../constants'
 import { useState } from 'react'
 import { router } from 'expo-router'
-const SignUp = () => {
+import { default as axios } from 'axios';
+axios.defaults.baseURL = 'http://192.168.8.203:8000';
 
+const SignUp = () => {
   const [email, setEmail] = React.useState('');
-  const [username, setUsername] = React.useState('');
+  const [name, setName] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [passwordconfirmation, setPasswordconfirmation] = React.useState('');
+
+  const registerUser = async (userData) => {
+    try {
+      const response = await axios.post('http://192.168.8.203:8000/api/register', userData);
+      console.log(response); // Log the full response
+      console.log(response.data); // Log the data property
+    } catch (error) {
+      console.error(error); // Handle error
+    }
+  };
+
+  const handleSubmit = () => {
+    const userData = { name, email, password, passwordconfirmation };
+    registerUser(userData);
+  };
   
  
   return (
@@ -29,8 +48,8 @@ const SignUp = () => {
           <Text className="text-white text-xl  mt-5 font-semibold">Username</Text>
           <TextInput
             style={styles.input}
-            onChangeText={setUsername}
-            value={username}
+            onChangeText={setName}
+            value={name}
             placeholder='Enter Username'
             placeholderTextColor={'#ffffff'}
           />
@@ -42,8 +61,15 @@ const SignUp = () => {
             placeholder='Enter Password'
             placeholderTextColor={'#ffffff'}
           />
-          
-          <Pressable onPress={() => router.push('/home')}
+          <Text className="text-white text-xl mt-5 font-semibold">Confirm Password</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={setPasswordconfirmation}
+            value={passwordconfirmation}
+            placeholder='Enter Password'
+            placeholderTextColor={'#ffffff'}
+          />
+          <Pressable onPress={handleSubmit} 
             style={styles.signup}
             className="w-full justify-center text-justify">
             <Text className=" text-lg" style={{textAlign: 'center', color: '#0f0529'}}>Sign up</Text>

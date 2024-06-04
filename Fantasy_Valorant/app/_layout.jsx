@@ -1,40 +1,50 @@
 import { StyleSheet, Text, View } from 'react-native'
 import { SplashScreen, Stack } from 'expo-router';
 import { useFonts } from 'expo-font'
-import { useEffect } from 'react';
-
-SplashScreen.preventAutoHideAsync();
+import { useEffect, useState } from 'react';
+import { loaduser } from '../services/Authservice';
+import {  useUser } from '../context/UserContext';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import AuthContext from '../context/AuthContext';
+import TabsLayout from './(tabs)/_layout';
+const Stacks = createNativeStackNavigator();
 
 const RootLayout = () => {
-    const [fontsLoaded, error] = useFonts({
-        "Poppins-Black": require("../assets/fonts/Poppins-Black.ttf"),
-        "Poppins-Bold": require("../assets/fonts/Poppins-Bold.ttf"),
-        "Poppins-ExtraBold": require("../assets/fonts/Poppins-ExtraBold.ttf"),
-        "Poppins-ExtraLight": require("../assets/fonts/Poppins-ExtraLight.ttf"),
-        "Poppins-Light": require("../assets/fonts/Poppins-Light.ttf"),
-        "Poppins-Medium": require("../assets/fonts/Poppins-Medium.ttf"),
-        "Poppins-Regular": require("../assets/fonts/Poppins-Regular.ttf"),
-        "Poppins-SemiBold": require("../assets/fonts/Poppins-SemiBold.ttf"),
-        "Poppins-Thin": require("../assets/fonts/Poppins-Thin.ttf"),
-      });
-      
-      useEffect(() => {
-        if(error) throw error;
+  
+  const [user, setUser] = useState();
 
-        if(fontsLoaded) SplashScreen.hideAsync();
-      }, [fontsLoaded, error])
+  useEffect(() =>{
+    async function runEffect() {
+      try {
+        const user = await loaduser();
+        setUser(user);
+      } catch(error){
+        console.log("Failed to load user", error)
+      }
+    }
 
-      if(!fontsLoaded && !error) return null;
-
+    runEffect();
+  }, [])
   return (
-    <Stack>
-        <Stack.Screen name="index" options={{headerShown: false}}/>
-        <Stack.Screen name="(auth)" options={{headerShown: false}}/>
-        <Stack.Screen name="(tabs)" options={{headerShown: false}}/>
-        <Stack.Screen name="(info)" options={{headerShown: false}}/>
-    </Stack>
-  )
-}
+    <AuthContext.Provider value={{user, setUser
+    }}>
+      <Stack>
+      {user? (
+        <>
+          <Stack.Screen name="(tabs)" options={{headerShown: false}} component={TabsLayout}/>
+        </>
+
+      ) : (
+        <>
+          <Stack.Screen name="index" options={{headerShown: false}}/>
+          <Stack.Screen name="(auth)" options={{headerShown: false}}/>
+          <Stack.Screen name="(info)" options={{headerShown: false}}/>
+        </>
+      )}
+      </Stack>
+    </AuthContext.Provider>
+  );
+};
 
 export default RootLayout
 

@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ApiController extends Controller
 {
+    
     // Register Api (POST)
     public function register(Request $request){
         
@@ -44,31 +45,27 @@ class ApiController extends Controller
 
     // Login Api (POST)
     public function login(Request $request){
-        //Data validation
-
-        $request ->validate([
-            "email" => "required|email",
+        // Data validation
+        $request->validate([
+            "name" => "required|string",
             "password" => "required"
         ]);
-
+    
         // Checking User login
         if(Auth::attempt([
-            "email" => $request->email,
+            "name" => $request->name,
             "password" => $request->password,
         ])){
-            //User exists
+            // User exists
             $user = Auth::user();
-
             $token = $user->createToken("myToken")->accessToken;
-
+    
             return response()->json([
-                "status" =>true,
+                "status" => true,
                 "message" => "User logged in successfully",
                 "token" => $token
             ]);
-
-        }else{
-
+        } else {
             return response()->json([
                 "status" => false,
                 "messages" => "Invalid login details"

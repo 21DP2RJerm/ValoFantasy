@@ -1,27 +1,20 @@
 <?php
 
-return [
+namespace App\Http\Middleware;
 
-/*
-|-------------------------------------------------------------------
-| Cross-Origin Resource Sharing (CORS) Configuration
-|-------------------------------------------------------------------
-|
-| Here you may configure your settings for cross-origin resource sharing
-| or "CORS". This determines what cross-origin operations may execute
-| in web browsers. You are free to adjust these settings as needed.
-|
-| To learn more: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
-|
-*/
+use Closure;
 
-'paths' => ['*'],
-'allowed_methods' => ['*'],
-'allowed_origins' => ['http://127.0.0.1:8000/api/login'],
-'allowed_origins_patterns' => [],
-'allowed_headers' => ['*'],
-'exposed_headers' => [],
-'max_age' => 0,
-'supports_credentials' => false,
+class Cors
+{
+    public function handle($request, Closure $next)
+    {
+        $response = $next($request);
 
-];
+        // Set CORS headers
+        $response->header('Access-Control-Allow-Origin', '*');
+        $response->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+        $response->header('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, X-Token-Auth, Authorization');
+
+        return $response;
+    }
+}

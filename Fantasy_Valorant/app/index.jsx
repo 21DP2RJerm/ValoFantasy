@@ -3,9 +3,11 @@ import { ScrollView, StyleSheet, Text, View, Image, Button, Pressable } from 're
 import { Link, Redirect, router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { images } from '../constants';
+import axios from 'axios';
 
+axios.defaults.baseURL = 'http://192.168.8.203:8000';
 
-export default function App() {
+export default function Index() {
   return (
     <SafeAreaView className= "h-full" style={{backgroundColor: '#0f0529'}}>
       <ScrollView contentContainerStyle={{ height: '100'}}>
