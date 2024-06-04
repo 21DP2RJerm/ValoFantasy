@@ -10,4 +10,5 @@ composer update varbut install idk
 cp .env.example .env un veic izmainas env faila
 php artisan migrate
 php artisan passport:client --personal
+php artisan key:generate
 php artisan serve
