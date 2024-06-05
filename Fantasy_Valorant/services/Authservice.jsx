@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getToken, setToken } from "./TokenService";
+import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
 
 export async function login(credentials){
@@ -14,7 +15,7 @@ export async function login(credentials){
       console.log("res", data)
 
       await setToken(data.token);
-
+      return data
 }
 
 export async function loaduser(){
@@ -29,4 +30,19 @@ export async function loaduser(){
     return profile;
 }
 
+export async function logout(){
+  const token = await getToken();
+  await axios.get("http://192.168.8.203:8000/api/logout",
+    {},
+    {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`
+      }
+    }
+  
+  )
+
+  await setToken(null);
+}
 

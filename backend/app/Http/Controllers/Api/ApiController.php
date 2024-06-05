@@ -15,7 +15,12 @@ use Illuminate\Support\Facades\Auth;
 
 class ApiController extends Controller
 {
-    
+    public function countsUsers(Request $request){
+        $users = \App\Models\User::orderBy('name')->pluck('name'); // Fetch all user names
+        return response()->json([
+            "data" => $users->toArray(), // Convert collection to array
+        ]);
+    }
     // Register Api (POST)
     public function register(Request $request){
         
@@ -167,4 +172,6 @@ class ApiController extends Controller
             "message" => "Fantasy Team has been created"
         ]);
     }
+
+
 }

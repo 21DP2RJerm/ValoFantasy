@@ -17,6 +17,7 @@ Route::post("/login",  [ApiController::class, "login"]);
 Route::post("createPlayer", [ApiController::class, "createPlayer"]);
 Route::post("createTeam", [ApiController::class, "createTeam"]);
 Route::post("fantasyTeam", [ApiController::class, "fantasyTeam"]);
+Route::post("countsUsers" ,[ApiController::class, "countsUsers"]);
 
 // Protected routes
 Route::group([

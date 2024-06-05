@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import { SplashScreen, Stack } from 'expo-router';
 import { useFonts } from 'expo-font'
 import { useEffect, useState } from 'react';
-import { loaduser } from '../services/Authservice';
+import { loaduser,data } from '../services/Authservice';
 import {  useUser } from '../context/UserContext';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AuthContext from '../context/AuthContext';
@@ -12,7 +12,6 @@ import AuthLayout from './(auth)/_layout';
 import Index from './index';
 import home from './(tabs)/home';
 import { router } from 'expo-router'
-
 const Stacks = createNativeStackNavigator();
 
 const RootLayout = ({ navigation }) => {
@@ -21,14 +20,21 @@ const RootLayout = ({ navigation }) => {
   useEffect(() => {
     async function runEffect() {
       try {
-        const isLoggedIn = await loaduser(); // Assuming this now returns true/false
-        if (isLoggedIn) {
-          // Navigate to tabs screen if user is logged in
+        const userInfo = await loaduser(); // Assuming this now returns user info on success
+        if (userInfo) {
+          // Consider the user logged in if userInfo exists
+          console.log('User logged in');
+          // Optionally, extract user info to state or context if needed
+          setUser(userInfo);
+          // Navigate to home screen if user is logged in
           router.push('/home');
-          console.log("User logged in");
+        } else {
+          console.log('No user info found');
+          // Handle the case where no user info is found
         }
       } catch (error) {
         console.log('Failed to load user', error);
+        // Handle errors during the load process
       }
     }
 

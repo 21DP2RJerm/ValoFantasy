@@ -95,8 +95,6 @@ const styles = StyleSheet.create({
     height: 50,
     borderColor: 'white',
     backgroundColor: 'white'
-   
-  
   },
   signup: {
     marginTop: 20,
