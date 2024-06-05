@@ -7,46 +7,55 @@ import {  useUser } from '../context/UserContext';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AuthContext from '../context/AuthContext';
 import TabsLayout from './(tabs)/_layout';
+import infoLayout from './(info)/_layout';
+import AuthLayout from './(auth)/_layout';
+import Index from './index';
+import home from './(tabs)/home';
+import { router } from 'expo-router'
+
 const Stacks = createNativeStackNavigator();
 
-const RootLayout = () => {
-  
-  const [user, setUser] = useState();
+const RootLayout = ({ navigation }) => {
+  const [user, setUser] = useState(null);
 
-  useEffect(() =>{
+  useEffect(() => {
     async function runEffect() {
       try {
-        const user = await loaduser();
-        setUser(user);
-      } catch(error){
-        console.log("Failed to load user", error)
+        const isLoggedIn = await loaduser(); // Assuming this now returns true/false
+        if (isLoggedIn) {
+          // Navigate to tabs screen if user is logged in
+          router.push('/home');
+          console.log("User logged in");
+        }
+      } catch (error) {
+        console.log('Failed to load user', error);
       }
     }
 
     runEffect();
-  }, [])
-  return (
-    <AuthContext.Provider value={{user, setUser
-    }}>
-      <Stack>
-      {user? (
-        <>
-          <Stack.Screen name="(tabs)" options={{headerShown: false}} component={TabsLayout}/>
-        </>
+  }, []);
 
-      ) : (
-        <>
-          <Stack.Screen name="index" options={{headerShown: false}}/>
-          <Stack.Screen name="(auth)" options={{headerShown: false}}/>
-          <Stack.Screen name="(info)" options={{headerShown: false}}/>
-        </>
-      )}
+  return (
+    <AuthContext.Provider value={{ user, setUser }}>
+      <Stack initialRouteName="index">
+        {user? (
+          <>
+            <Stack.Screen name="(tabs)"  options={{ headerShown: false }} />
+            <Stack.Screen name="(info)" options={{ headerShown: false }} /> {/* Placeholder component */}
+          </>
+        ) : (
+          <>
+            <Stack.Screen name="index"  options={{ headerShown: false }} /> {/* Placeholder component */}
+            <Stack.Screen name="(auth)"  options={{ headerShown: false }} /> {/* Placeholder component */}
+          </>
+        )}
       </Stack>
     </AuthContext.Provider>
   );
 };
 
-export default RootLayout
+
+export default RootLayout;
 
 const styles = StyleSheet.create({
     container: {
