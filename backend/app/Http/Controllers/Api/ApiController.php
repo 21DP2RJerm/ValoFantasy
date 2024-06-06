@@ -16,15 +16,15 @@ use App\Models\Team;
 class ApiController extends Controller
 {   
     public function getTeamInfo(Request $request){
-        $teams = \App\Models\Team::all()->pluck('name'); // Fetch all user names
+        $teams = \App\Models\Team::all()->pluck('name'); 
         return response()->json([
-            "data" => $teams->toArray(), // Convert collection to array
+            "data" => $teams->toArray(), 
         ]);
     }
     public function countsUsers(Request $request){
-        $users = \App\Models\User::orderBy('name')->pluck('name'); // Fetch all user names
+        $users = \App\Models\User::orderBy('name')->pluck('name'); 
         return response()->json([
-            "data" => $users->toArray(), // Convert collection to array
+            "data" => $users->toArray(), 
         ]);
     }
     // Register Api (POST)

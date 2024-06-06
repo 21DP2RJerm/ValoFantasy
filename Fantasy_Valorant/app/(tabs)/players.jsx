@@ -44,7 +44,7 @@ const Players = () => {
   }, []);
 
   if (isLoading) {
-    return null; // Or return a splash screen component
+    return null; 
   }
 
   const handlePress = () => {
@@ -87,9 +87,9 @@ const styles = StyleSheet.create({
     margin: 5,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center', // Center text vertically
+    alignItems: 'center', 
     padding: 10,
-    height: 50 // Ensure TouchableOpacity has a height
+    height: 50 
   },
   sortButton: {
     marginTop: 50,

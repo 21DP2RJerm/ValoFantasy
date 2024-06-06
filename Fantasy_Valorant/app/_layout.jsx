@@ -20,21 +20,21 @@ const RootLayout = ({ navigation }) => {
   useEffect(() => {
     async function runEffect() {
       try {
-        const userInfo = await loaduser(); // Assuming this now returns user info on success
+        const userInfo = await loaduser();
         if (userInfo) {
-          // Consider the user logged in if userInfo exists
+          
           console.log('User logged in');
-          // Optionally, extract user info to state or context if needed
+
           setUser(userInfo);
-          // Navigate to home screen if user is logged in
+        
           router.push('/home');
         } else {
           console.log('No user info found');
-          // Handle the case where no user info is found
+         
         }
       } catch (error) {
         console.log('Failed to load user', error);
-        // Handle errors during the load process
+  
       }
     }
 

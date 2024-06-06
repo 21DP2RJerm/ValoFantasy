@@ -17,7 +17,7 @@ const leaderboard = () => {
   }, [navigation]);
 
   const [sortedUserData, setSortedUserData] = useState([]);
-  const [isAscending, setIsAscending] = useState(true); // Initial sort direction
+  const [isAscending, setIsAscending] = useState(true); 
 
   useEffect(() => {
     const fetchData = async () => {
