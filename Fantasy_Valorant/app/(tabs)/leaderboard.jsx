@@ -1,13 +1,21 @@
 import { View, Text, ScrollView, StyleSheet, Image, Pressable} from 'react-native';
-import React from 'react';
+import React, { useLayoutEffect} from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { images } from '../../constants';
 import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
 
 
 const leaderboard = () => {
+
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({ headerShown: false });
+  }, [navigation]);
+
   const [sortedUserData, setSortedUserData] = useState([]);
   const [isAscending, setIsAscending] = useState(true); // Initial sort direction
 

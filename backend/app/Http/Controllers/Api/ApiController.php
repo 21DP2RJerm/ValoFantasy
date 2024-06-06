@@ -5,16 +5,22 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Team;
 use App\Models\Player;
 use App\Models\fantasyTeam;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Team;
 
 
 
 class ApiController extends Controller
-{
+{   
+    public function getTeamInfo(Request $request){
+        $teams = \App\Models\Team::all()->pluck('name'); // Fetch all user names
+        return response()->json([
+            "data" => $teams->toArray(), // Convert collection to array
+        ]);
+    }
     public function countsUsers(Request $request){
         $users = \App\Models\User::orderBy('name')->pluck('name'); // Fetch all user names
         return response()->json([

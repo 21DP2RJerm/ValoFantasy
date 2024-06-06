@@ -1,95 +1,106 @@
-import { View, Text, ScrollView, StyleSheet, Image, Pressable} from 'react-native'
-import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { images } from '../../constants'
-import { router } from 'expo-router'
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import axios from 'axios';
+import * as SplashScreen from 'expo-splash-screen';
+import { useRouter } from 'expo-router'; 
 
+const Players = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [teamData, setTeamData] = useState([]);
+  const router = useRouter();
 
-const Row = ({ children }) => (
-  <View style={styles.row}>{children}</View>
-)
-const players = () => {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.post('http://192.168.8.203:8000/api/getTeamInfo');
+        const data = response.data;
+        setTeamData(data.data);
+      } catch (error) {
+        console.error('Failed to fetch sorted user data:', error);
+      }
+    };
+
+    fetchData();
+
+    async function prepare() {
+      try {
+        // Prevent the splash screen from auto-hiding
+        await SplashScreen.preventAutoHideAsync();
+
+        // Simulate data fetching
+        await new Promise(resolve => setTimeout(resolve, 2000));
+
+        // Hide the splash screen
+        await SplashScreen.hideAsync();
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    prepare();
+  }, []);
+
+  if (isLoading) {
+    return null; // Or return a splash screen component
+  }
+
+  const handlePress = () => {
+    router.push('/teaminfo');
+  };
+
   return (
-    <SafeAreaView className="h-full" style={{backgroundColor:'#0f0529'}}>
-      <ScrollView>
-        <Text className="text-3xl text-white font-bold mt-10" style={{textAlign: 'center'}}>Choose a team</Text>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#0f0529' }}>
+      <ScrollView style={{ flexGrow: 1, backgroundColor: '#0f0529' }}>
+        <Text style={{ textAlign: 'center', fontSize: 24, color: 'white', fontWeight: 'bold', marginTop: 20, marginBottom: 20 }}>Teams</Text>
         <View style={styles.app}>
-          <Row>
-            <View style={styles.col } > 
-              <Pressable onPress={() => router.push('/teaminfo')} >
-                <Image source={images.fnatic} className="w-[270px] h-[150px]" resizeMode="contain" />
-              </Pressable>
-                
-             
-              
-            </View>
-            <View style={styles.col}> 
-              <Pressable onPress={() => router.push('/teaminfo')}>
-                <Image source={images.navi} className="w-[250px] h-[140px]" resizeMode="contain" />
-              </Pressable>     
-            </View>
-          </Row>
-          <Row>
-            <View style={styles.col}> 
-              <Image source={images.liquid} className="w-[330px] h-[200px]" resizeMode="contain" />
-            </View>
-            <View style={styles.col}> 
-              <Image source={images.heretics} className="w-[320px] h-[200px]" resizeMode="contain" />
-            </View>
-          </Row>
-          <Row>
-            <View style={styles.col}> 
-              <Image source={images.kc} className="w-[320px] h-[200px]" resizeMode="contain" />
-            </View>
-            <View style={styles.col}> 
-              <Image source={images.fut} className="w-[330px] h-[200px]" resizeMode="contain" />
-            </View>
-          </Row>
-          <Row>
-            <View style={styles.col}> 
-              <Image source={images.bbl} className="w-[260px] h-[150px]" resizeMode="contain" />
-            </View>
-            <View style={styles.col}> 
-              <Image source={images.giantx} className="w-[300px] h-[170px]" resizeMode="contain" />
-            </View>
-          </Row>
-          <Row>
-            <View style={styles.col}> 
-              <Image source={images.koi} className="w-[330px] h-[200px]" resizeMode="contain" />
-            </View>
-            <View style={styles.col}> 
-              <Image source={images.gm8} className="w-[330px] h-[200px]" resizeMode="contain" />
-            </View>
-          </Row>
+          {teamData.map((teamName, index) => (
+            <TouchableOpacity 
+              key={index} 
+              style={styles.col} 
+              onPress={() => handlePress(teamName)} 
+            >
+              <Text style={{ textAlign: 'center' }}>{teamName}</Text>
+            </TouchableOpacity>
+          ))}
         </View>
       </ScrollView>
-
     </SafeAreaView>
-  )
-}
+  );
+};
 
-const styles = {
+const styles = StyleSheet.create({
   app: {
-    flex: 4,
+    flex: 1,
     marginHorizontal: "auto",
     width: 350,
-
+    backgroundColor: '#0f0529'
   },
-  row: {
-    flexDirection: "row"
-  },
-  col:  {
-    borderColor:  "#ffffff",
+  col: {
+    borderColor: "#ffffff",
     backgroundColor: '#ffffff',
-    borderWidth:  1,
-    flex:  2,
+    borderWidth: 1,
+    flex: 1,
     borderRadius: 5,
-    margin: 10,
+    margin: 5,
+    flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
-    
+    alignItems: 'center', // Center text vertically
+    padding: 10,
+    height: 50 // Ensure TouchableOpacity has a height
+  },
+  sortButton: {
+    marginTop: 50,
+    width: '30%',
+    borderRadius: 5,
+    borderWidth: 1,
+    height: 50,
+    borderColor: 'white',
+    backgroundColor: 'white',
+    justifyContent: 'center'
   }
-    
+});
 
-};
-export default players
+export default Players;

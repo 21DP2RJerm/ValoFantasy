@@ -1,10 +1,19 @@
 import { View, Text, Image } from 'react-native'
-import React from 'react'
+import React, { useLayoutEffect, useEffect } from 'react'
 import { Tab, Redirect, Tabs } from 'expo-router';
 import {icons} from '../../constants';
 import { StatusBar } from 'expo-status-bar';
+import { useNavigation } from '@react-navigation/native';
 
 const TabIcon = ({icon, color, name, focused}) => {
+  const navigation = useNavigation();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, []);
+
   return (
     <View className="items-center justify-center gap-2">
       <Image

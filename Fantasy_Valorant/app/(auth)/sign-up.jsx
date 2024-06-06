@@ -34,10 +34,10 @@ const SignUp = () => {
     <SafeAreaView className=  "h-full" style={{backgroundColor: '#0f0529'}}>
       <ScrollView>
         <View className="w-full justify-center h-full px-4 my-6">
-          <Image source={images.logo} resizeMode='contain' className="w-[115px] h-[35px]"/>
+          <Image source={images.logo} resizeMode='contain' className="w-[115px] h-[65px]"/>
 
-          <Text className="text-white text-2xl mt-10 font-semibold">Sign up to Valorant Fantasy</Text>
-          <Text className="text-white text-xl  mt-10 font-semibold">Email</Text>
+          <Text className="text-white text-2xl mt-5 font-semibold">Sign up to Valorant Fantasy</Text>
+          <Text className="text-white text-xl  mt-5 font-semibold">Email</Text>
           <TextInput
             style={styles.input}
             onChangeText={setEmail}

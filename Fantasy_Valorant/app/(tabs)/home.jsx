@@ -3,8 +3,17 @@ import { ScrollView, StyleSheet, Text, View, Image, Button, Pressable } from 're
 import { Link, Redirect, router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { images } from '../../constants';
+import { useNavigation } from '@react-navigation/native';
+import React, { useEffect, useLayoutEffect } from 'react';
 
 const home = () => {
+  const navigation = useNavigation();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, []);
   return (
     <SafeAreaView className= "h-full" style={{backgroundColor: '#0f0529'}}>
       <ScrollView contentContainerStyle={{ height: '100'}}>

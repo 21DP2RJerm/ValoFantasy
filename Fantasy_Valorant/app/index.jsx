@@ -4,10 +4,20 @@ import { Link, Redirect, router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { images } from '../constants';
 import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
+import React, { useLayoutEffect } from 'react';
 
 axios.defaults.baseURL = 'http://192.168.8.203:8000';
 
 export default function Index() {
+  const navigation = useNavigation();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, []);
+
   return (
     <SafeAreaView className= "h-full" style={{backgroundColor: '#0f0529'}}>
       <ScrollView contentContainerStyle={{ height: '100'}}>

@@ -46,13 +46,13 @@ const RootLayout = ({ navigation }) => {
       <Stack initialRouteName="index">
         {user? (
           <>
-            <Stack.Screen name="(tabs)"  options={{ headerShown: false }} />
-            <Stack.Screen name="(info)" options={{ headerShown: false }} /> {/* Placeholder component */}
+            <Stack.Screen name="(tabs)" component={TabsLayout} options={{ headerShown: false }} />
+            <Stack.Screen name="(info)" component={infoLayout} options={{ headerShown: false }} /> 
           </>
         ) : (
           <>
-            <Stack.Screen name="index"  options={{ headerShown: false }} /> {/* Placeholder component */}
-            <Stack.Screen name="(auth)"  options={{ headerShown: false }} /> {/* Placeholder component */}
+            <Stack.Screen name="index" component={Index} options={{ headerShown: false }} /> 
+            <Stack.Screen name="(auth)" component={AuthLayout} options={{ headerShown: false }} /> 
           </>
         )}
       </Stack>

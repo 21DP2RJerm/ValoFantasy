@@ -41,7 +41,7 @@ const SignIn = () => {
     <SafeAreaView className=  "h-full" style={{backgroundColor: '#0f0529'}}>
       <ScrollView>
         <View className="w-full justify-center h-full px-4 my-6">
-          <Image source={images.vflogo} resizeMode='contain' className="w-[200px] h-[100px] "/>
+          <Image source={images.logo} resizeMode='contain' className="w-[200px] h-[100px] "/>
 
           <Text className="text-white text-2xl mt-10 font-semibold">Log in to Valorant Fantasy</Text>
           <Text className="text-white text-xl  mt-10 font-semibold">Username</Text>

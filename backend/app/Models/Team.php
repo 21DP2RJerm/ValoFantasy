@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 
 
-class User extends Authenticatable
+class Team extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
