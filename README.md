@@ -1,4 +1,4 @@
-Valorant Fantasy react native mobile app instrukcijas kā palaist <br>
+Valorant Fantasy react native ar laravel un mysql mobile app instrukcijas kā palaist <br>
 
 1. Ielādējot cd līdz tiek uz mapi virs Fantasy_Valorant <br>
 2. Run npm install expo <br>
