@@ -1,9 +1,12 @@
 import { View, Text, ScrollView, StyleSheet, Image, Pressable, TextInput} from 'react-native'
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { images } from '../../constants'
 import { router } from 'expo-router'
 import { useNavigation } from '@react-navigation/native'; 
+import axios from 'axios';
+import { loaduser } from '../../services/Authservice';
+
 const Row = ({ children }) => (
   <View style={styles.row}>{children}</View>
 )
@@ -15,15 +18,47 @@ const team = () => {
   const [player3, setPlayer3] = useState('');
   const [player4, setPlayer4] = useState('');
   const [player5, setPlayer5] = useState('');
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const userInfo = await loaduser();
+        if (userInfo && userInfo.data && userInfo.data.id) {
+          console.log('User data:', userInfo);
+          setUser(userInfo.data.id);
+        }
+      } catch (error) {
+        console.error('Failed to load user', error);
+      }
+    };
+
+    fetchUser();
+  }, []);
 
   const handleSubmit = async () => {
+    if (!user) {
+      console.error('User ID is not available');
+      return;
+    }
+
     try {
+      console.log('Sending data:', {
+        user,
+        player1,
+        player2,
+        player3,
+        player4,
+        player5,
+      });
+
       const response = await fetch('http://192.168.8.203:8000/api/fantasyTeam', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          user,
           player1,
           player2,
           player3,
@@ -42,7 +77,6 @@ const team = () => {
       console.error(error);
     }
   };
-  
   return (
     <SafeAreaView className="w-full justify-center h-full px-4" style={{backgroundColor:'#0f0529'}}>
     <ScrollView>

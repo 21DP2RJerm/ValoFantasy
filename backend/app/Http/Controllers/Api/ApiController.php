@@ -10,6 +10,7 @@ use App\Models\fantasyTeam;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Team;
+use Illuminate\Support\Facades\Log;
 
 
 
@@ -154,47 +155,51 @@ class ApiController extends Controller
     }
 
     public function fantasyTeam(Request $request)
-    {
-        $request->validate([
-            "player1" => "required|string",
-            "player2" => "required|string",
-            "player3" => "required|string",
-            "player4" => "required|string",
-            "player5" => "required|string",
-        ]);
+{
+    $request->validate([
+        "player1" => "required|string",
+        "player2" => "required|string",
+        "player3" => "required|string",
+        "player4" => "required|string",
+        "player5" => "required|string",
+        "user" => "required|numeric" // Validate user field as numeric for bigInteger
+    ]);
 
-        $players = [
-            'player1' => Player::where('name', $request->player1)->first(),
-            'player2' => Player::where('name', $request->player2)->first(),
-            'player3' => Player::where('name', $request->player3)->first(),
-            'player4' => Player::where('name', $request->player4)->first(),
-            'player5' => Player::where('name', $request->player5)->first(),
-        ];
+    Log::info('Received data:', $request->all());
 
-        $foundPlayers = array_filter($players, function ($player) {
-            return $player!== null;
-        });
+    $players = [
+        'player1' => Player::where('name', $request->player1)->first(),
+        'player2' => Player::where('name', $request->player2)->first(),
+        'player3' => Player::where('name', $request->player3)->first(),
+        'player4' => Player::where('name', $request->player4)->first(),
+        'player5' => Player::where('name', $request->player5)->first(),
+    ];
 
-        if (count($foundPlayers)!== 5) {
-            return response()->json([
-                "status" => false,
-                "message" => "One or more players not found."
-            ], 404);
-        }
+    $foundPlayers = array_filter($players, function ($player) {
+        return $player !== null;
+    });
 
-        fantasyTeam::create([
-            "player1" => $foundPlayers['player1']->id,
-            "player2" => $foundPlayers['player2']->id,
-            "player3" => $foundPlayers['player3']->id,
-            "player4" => $foundPlayers['player4']->id,
-            "player5" => $foundPlayers['player5']->id,
-        ]);
-
+    if (count($foundPlayers) !== 5) {
         return response()->json([
-            "status" => true,
-            "message" => "Fantasy Team has been created"
-        ]);
+            "status" => false,
+            "message" => "One or more players not found."
+        ], 404);
     }
+
+    fantasyTeam::create([
+        "player1" => $foundPlayers['player1']->id,
+        "player2" => $foundPlayers['player2']->id,
+        "player3" => $foundPlayers['player3']->id,
+        "player4" => $foundPlayers['player4']->id,
+        "player5" => $foundPlayers['player5']->id,
+        "user" => $request->user // Save user ID correctly
+    ]);
+
+    return response()->json([
+        "status" => true,
+        "message" => "Fantasy Team has been created"
+    ]);
+}
 
 
 }
