@@ -42,7 +42,7 @@ export async function logout(){
     }
   
   )
-
+  console.log('Authservice worked');
   await setToken(null);
 }
 

@@ -1,51 +1,72 @@
-import { View, Text, ScrollView, StyleSheet, Image, Pressable} from 'react-native'
-import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { images } from '../../constants'
-import { router } from 'expo-router'
+import { View, Text, ScrollView, StyleSheet, Image, Pressable, ActivityIndicator } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { images } from '../../constants';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import axios from 'axios';
+import { router } from 'expo-router';
+
 
 const TeamInfo = () => {
-  return (
-    <SafeAreaView className="h-full" style={{ backgroundColor: '#0f0529' }}>
-      <ScrollView>
-        <Text className="text-3xl text-white font-bold mt-10" style={{ textAlign: 'center' }}>FNATIC</Text>
+  const [teamName, setTeamName] = useState('');
+  const [players, setPlayers] = useState([]);
+  const navigation = useNavigation();
+  const route = useRoute();
+  const [isLoading, setIsLoading] = useState(true);
 
-        <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-          <Image source={images.fnatic} style={{ alignSelf: 'center' }} className="w-[200px] h-[200px] mt-5" resizeMode="contain" />
-        </View>
+  
+  useEffect(() => {
+    const { teamId, teamName: passedTeamName } = route.params || {};
+
+    if (teamId) {
+      setTeamName(passedTeamName);
+      fetchPlayers(teamId);
+    }
+  }, [route.params]);
+
+  const fetchPlayers = async (teamId) => {
+    try {
+      const response = await axios.post('http://192.168.8.203:8000/api/getTeamPlayers', { teamId });
+      const data = response.data;
+      setPlayers(data.players);
+    } catch (error) {
+      console.error('Failed to fetch players data:', error);
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#0f0529' }}>
+        <ActivityIndicator size="large" color="#fff" />
+      </SafeAreaView>
+    );
+  }
+
+  if (!teamName) {
+    return (
+      <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#0f0529' }}>
+        <Text style={{ color: 'white' }}>Team not found.</Text>
+      </SafeAreaView>
+    );
+  }
+  return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#0f0529' }}>
+      <ScrollView>
+        <Text style={{ textAlign: 'center', fontSize: 24, color: 'white', fontWeight: 'bold', marginTop: 20 }}>{teamName}</Text>
 
         <View style={styles.app}>
-          <View style={styles.col}>
-            <Pressable onPress={() => router.push('/playerinfo')}>
-              <Image source={images.boaster} className="w-[100px] h-[100px]" resizeMode="contain" />
-            </Pressable>
-          </View>
-          <View style={styles.col}>
-            <Pressable onPress={() => router.push('/playerinfo')}>
-              <Image source={images.leo} className="w-[100px] h-[100px]" resizeMode="contain" />
-            </Pressable>
-          </View>
-          <View style={styles.col}>
-            <Pressable onPress={() => router.push('/playerinfo')}>
-              <Image source={images.alfajer} className="w-[100px] h-[100px]" resizeMode="contain" />
-            </Pressable>
-          </View>
-          <View style={styles.col}>
-            <Pressable onPress={() => router.push('/playerinfo')}>
-              <Image source={images.chronicle} className="w-[100px] h-[100px]" resizeMode="contain" />
-            </Pressable>
-          </View>
-          <View style={styles.col}>
-            <Pressable onPress={() => router.push('/playerinfo')}>
-              <Image source={images.derke} className="w-[100px] h-[100px]" resizeMode="contain" />
-            </Pressable>
-          </View>
+          {players.map((player, index) => (
+            <View key={index} style={styles.col}>
+              <Pressable onPress={() => navigation.navigate('PlayerInfo', { playerId: player.id })} style={{ width: 100, height: 100, justifyContent: 'center', alignItems: 'center' }}>
+                <Text>{player.name}</Text>
+              </Pressable>
+            </View>
+          ))}
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
-
 const styles = {
   app: {
     flex: 1,

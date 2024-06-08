@@ -31,7 +31,7 @@ const SignIn = () => {
       
 
       const profile = await loaduser();
-
+      router.push('/home');
     
     } catch (error) {
       console.error(error.response.data);   

@@ -3,15 +3,15 @@ import { SplashScreen, Stack } from 'expo-router';
 import { useFonts } from 'expo-font'
 import { useEffect, useState } from 'react';
 import { loaduser,data } from '../services/Authservice';
-import {  useUser } from '../context/UserContext';
+import { useUser } from '../context/UserContext';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AuthContext from '../context/AuthContext';
 import TabsLayout from './(tabs)/_layout';
-import infoLayout from './(info)/_layout';
+import InfoLayout from './(info)/_layout';
 import AuthLayout from './(auth)/_layout';
 import Index from './index';
-import home from './(tabs)/home';
 import { router } from 'expo-router'
+
 const Stacks = createNativeStackNavigator();
 
 const RootLayout = ({ navigation }) => {
@@ -22,19 +22,14 @@ const RootLayout = ({ navigation }) => {
       try {
         const userInfo = await loaduser();
         if (userInfo) {
-          
           console.log('User logged in');
-
           setUser(userInfo);
-        
           router.push('/home');
         } else {
           console.log('No user info found');
-         
         }
       } catch (error) {
         console.log('Failed to load user', error);
-  
       }
     }
 
@@ -44,15 +39,15 @@ const RootLayout = ({ navigation }) => {
   return (
     <AuthContext.Provider value={{ user, setUser }}>
       <Stack initialRouteName="index">
-        {user? (
+        {user ? (
           <>
             <Stack.Screen name="(tabs)" component={TabsLayout} options={{ headerShown: false }} />
-            <Stack.Screen name="(info)" component={infoLayout} options={{ headerShown: false }} /> 
+            <Stack.Screen name="(info)" component={InfoLayout} options={{ headerShown: false }} />
           </>
         ) : (
           <>
-            <Stack.Screen name="index" component={Index} options={{ headerShown: false }} /> 
-            <Stack.Screen name="(auth)" component={AuthLayout} options={{ headerShown: false }} /> 
+            <Stack.Screen name="index" component={Index} options={{ headerShown: false }} />
+            <Stack.Screen name="(auth)" component={AuthLayout} options={{ headerShown: false }} />
           </>
         )}
       </Stack>
@@ -60,15 +55,13 @@ const RootLayout = ({ navigation }) => {
   );
 };
 
-
 export default RootLayout;
 
 const styles = StyleSheet.create({
-    container: {
-        display:'flex',
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    
-})
+  container: {
+    display: 'flex',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+});

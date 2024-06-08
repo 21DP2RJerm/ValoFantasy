@@ -25,6 +25,10 @@ class Player extends Authenticatable
         'team',
     ];
 
+    public function team()
+    {
+        return $this->belongsTo(Team::class, 'team');
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

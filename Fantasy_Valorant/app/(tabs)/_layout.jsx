@@ -1,11 +1,11 @@
 import { View, Text, Image } from 'react-native'
-import React, { useLayoutEffect, useEffect } from 'react'
-import { Tab, Redirect, Tabs } from 'expo-router';
-import {icons} from '../../constants';
+import React, { useLayoutEffect } from 'react'
+import { Tabs } from 'expo-router';
+import { icons } from '../../constants';
 import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from '@react-navigation/native';
 
-const TabIcon = ({icon, color, name, focused}) => {
+const TabIcon = ({ icon, color, name, focused }) => {
   const navigation = useNavigation();
 
   useLayoutEffect(() => {
@@ -22,12 +22,13 @@ const TabIcon = ({icon, color, name, focused}) => {
         tintColor={color}
         className="w-6 h-6"
       />
-      <Text className={`${focused ? 'font-bold' : 'font-semibold'} text-xs `} style={{color: color}} >
+      <Text className={`${focused ? 'font-bold' : 'font-semibold'} text-xs `} style={{ color: color }} >
         {name}
       </Text>
     </View>
   )
 }
+
 const TabsLayout = () => {
   return (
     <>
@@ -40,17 +41,17 @@ const TabsLayout = () => {
             borderTopWidth: 1,
             height: 64,
             backgroundColor: '#0F0529',
-            style:"light"
+            style: "light"
           }
         }}
       >
-        <Tabs.Screen 
-          name="home"    
+        <Tabs.Screen
+          name="home"
           options={{
             title: 'Home',
             headerShown: false,
-            tabBarIcon: ({color, focused}) => (
-              <TabIcon 
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
                 icon={icons.home}
                 color={color}
                 name="Home"
@@ -59,13 +60,13 @@ const TabsLayout = () => {
             )
           }}
         />
-        <Tabs.Screen 
-          name="leaderboard"    
+        <Tabs.Screen
+          name="leaderboard"
           options={{
             title: 'Leaderboard',
             headerShown: false,
-            tabBarIcon: ({color, focused}) => (
-              <TabIcon 
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
                 icon={icons.leaderboard}
                 color={color}
                 name="Leaderboard"
@@ -74,13 +75,13 @@ const TabsLayout = () => {
             )
           }}
         />
-        <Tabs.Screen 
-          name="team"    
+        <Tabs.Screen
+          name="team"
           options={{
             title: 'team',
             headerShown: false,
-            tabBarIcon: ({color, focused}) => (
-              <TabIcon 
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
                 icon={icons.team}
                 color={color}
                 name="My Team"
@@ -89,13 +90,13 @@ const TabsLayout = () => {
             )
           }}
         />
-        <Tabs.Screen 
-          name="players"    
+        <Tabs.Screen
+          name="players"
           options={{
             title: 'Players',
             headerShown: false,
-            tabBarIcon: ({color, focused}) => (
-              <TabIcon 
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
                 icon={icons.search}
                 color={color}
                 name="Players"
@@ -104,13 +105,13 @@ const TabsLayout = () => {
             )
           }}
         />
-        <Tabs.Screen 
-          name="profile"    
+        <Tabs.Screen
+          name="profile"
           options={{
             title: 'Profile',
             headerShown: false,
-            tabBarIcon: ({color, focused}) => (
-              <TabIcon 
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
                 icon={icons.profile}
                 color={color}
                 name="Profile"
@@ -119,11 +120,10 @@ const TabsLayout = () => {
             )
           }}
         />
-        
       </Tabs>
-      <StatusBar backgroundColor='#0f0529' style="light"/>
+      <StatusBar backgroundColor='#0f0529' style="light" />
     </>
   )
 }
 
-export default TabsLayout
+export default TabsLayout;

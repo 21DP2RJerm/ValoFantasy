@@ -21,6 +21,10 @@ class Team extends Authenticatable
         'country',
     ];
 
+    public function players()
+    {
+        return $this->hasMany(Player::class, 'team');
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

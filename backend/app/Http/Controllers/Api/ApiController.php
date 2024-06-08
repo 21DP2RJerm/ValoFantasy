@@ -153,27 +153,44 @@ class ApiController extends Controller
         ]);
     }
 
-    public function fantasyTeam(Request $request){
-
+    public function fantasyTeam(Request $request)
+    {
         $request->validate([
-            "player1" => "required",
-            "player2" => "required",
-            "player3" => "required",
-            "player4" => "required",
-            "player5" => "required",
-            "user" => "required"
+            "player1" => "required|string",
+            "player2" => "required|string",
+            "player3" => "required|string",
+            "player4" => "required|string",
+            "player5" => "required|string",
         ]);
+
+        $players = [
+            'player1' => Player::where('name', $request->player1)->first(),
+            'player2' => Player::where('name', $request->player2)->first(),
+            'player3' => Player::where('name', $request->player3)->first(),
+            'player4' => Player::where('name', $request->player4)->first(),
+            'player5' => Player::where('name', $request->player5)->first(),
+        ];
+
+        $foundPlayers = array_filter($players, function ($player) {
+            return $player!== null;
+        });
+
+        if (count($foundPlayers)!== 5) {
+            return response()->json([
+                "status" => false,
+                "message" => "One or more players not found."
+            ], 404);
+        }
 
         fantasyTeam::create([
-            "player1" => $request ->player1,
-            "player2" => $request ->player2,
-            "player3" => $request ->player3,
-            "player4" => $request ->player4,
-            "player5" => $request ->player5,
-            "user" => $request ->user
+            "player1" => $foundPlayers['player1']->id,
+            "player2" => $foundPlayers['player2']->id,
+            "player3" => $foundPlayers['player3']->id,
+            "player4" => $foundPlayers['player4']->id,
+            "player5" => $foundPlayers['player5']->id,
         ]);
 
-        return response() ->json([
+        return response()->json([
             "status" => true,
             "message" => "Fantasy Team has been created"
         ]);

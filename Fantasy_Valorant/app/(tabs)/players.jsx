@@ -1,14 +1,14 @@
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import axios from 'axios';
-import * as SplashScreen from 'expo-splash-screen';
-import { useRouter } from 'expo-router'; 
+import { useNavigation } from '@react-navigation/native'; 
+
 
 const Players = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [teamData, setTeamData] = useState([]);
-  const router = useRouter();
+  const navigation = useNavigation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,38 +17,21 @@ const Players = () => {
         const data = response.data;
         setTeamData(data.data);
       } catch (error) {
-        console.error('Failed to fetch sorted user data:', error);
+        console.error('Failed to fetch team data:', error);
       }
     };
 
-    fetchData();
-
-    async function prepare() {
-      try {
-        // Prevent the splash screen from auto-hiding
-        await SplashScreen.preventAutoHideAsync();
-
-        // Simulate data fetching
-        await new Promise(resolve => setTimeout(resolve, 2000));
-
-        // Hide the splash screen
-        await SplashScreen.hideAsync();
-      } catch (e) {
-        console.warn(e);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
-    prepare();
+    fetchData().then(() => setIsLoading(false));
   }, []);
 
   if (isLoading) {
-    return null; 
+    <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#0f0529' }}>
+      <ActivityIndicator size="large" color="#fff" />
+    </SafeAreaView>
   }
 
-  const handlePress = () => {
-    router.push('/teaminfo');
+  const handlePress = (teamId, teamName) => {
+    navigation.navigate('teaminfo', { teamId, teamName });
   };
 
   return (
@@ -56,13 +39,13 @@ const Players = () => {
       <ScrollView style={{ flexGrow: 1, backgroundColor: '#0f0529' }}>
         <Text style={{ textAlign: 'center', fontSize: 24, color: 'white', fontWeight: 'bold', marginTop: 20, marginBottom: 20 }}>Teams</Text>
         <View style={styles.app}>
-          {teamData.map((teamName, index) => (
-            <TouchableOpacity 
-              key={index} 
-              style={styles.col} 
-              onPress={() => handlePress(teamName)} 
+          {teamData.map((team, index) => (
+            <TouchableOpacity
+              key={index}
+              style={styles.col}
+              onPress={() => handlePress(team.id, team.name)}
             >
-              <Text style={{ textAlign: 'center' }}>{teamName}</Text>
+              <Text style={{ textAlign: 'center' }}>{team.name}</Text>
             </TouchableOpacity>
           ))}
         </View>

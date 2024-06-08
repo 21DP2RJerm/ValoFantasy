@@ -13,6 +13,7 @@ const Row = ({ children }) => (
 const profile = () => {
   const {user, setUser} = useContext(AuthContext);
   async function handleLogout(){
+    console.log('User logged out');
     await logout();
     setUser(null);
     router.push('/index');

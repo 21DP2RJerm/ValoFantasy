@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ApiController;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
-
+use App\Http\Controllers\TeamController;
 //Route::get('/user', function (Request $request) {
 //    return $request->user();
 //})->middleware('auth:sanctum');
@@ -18,7 +18,8 @@ Route::post("createPlayer", [ApiController::class, "createPlayer"]);
 Route::post("createTeam", [ApiController::class, "createTeam"]);
 Route::post("fantasyTeam", [ApiController::class, "fantasyTeam"]);
 Route::post("countsUsers" ,[ApiController::class, "countsUsers"]);
-Route::post("getTeamInfo", [ApiController::class, "getTeamInfo"]);
+Route::post('getTeamInfo', [TeamController::class, 'getTeamInfo']);
+Route::post('getTeamPlayers', [TeamController::class, 'getTeamPlayers']);
 
 // Protected routes
 Route::group([
