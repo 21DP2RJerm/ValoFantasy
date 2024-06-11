@@ -28,4 +28,11 @@ class TeamController extends Controller
             return response()->json(['error' => 'Failed to fetch players data'], 500);
         }
     }
+    public function getTeamByName(Request $request) {
+        $team = Team::where('name', $request->name)->first();
+        if (!$team) {
+            return response()->json(['status' => false, 'message' => 'Team not found'], 404);
+        }
+        return response()->json(['status' => true, 'id' => $team->id]);
+    }
 }

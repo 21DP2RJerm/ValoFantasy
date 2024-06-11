@@ -1,17 +1,15 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native';
 import { SplashScreen, Stack } from 'expo-router';
-import { useFonts } from 'expo-font'
 import { useEffect, useState } from 'react';
-import { loaduser,data } from '../services/Authservice';
-import { useUser } from '../context/UserContext';
+import { loaduser } from '../services/Authservice';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AuthContext from '../context/AuthContext';
 import TabsLayout from './(tabs)/_layout';
 import InfoLayout from './(info)/_layout';
 import AuthLayout from './(auth)/_layout';
 import Index from './index';
-import { router } from 'expo-router'
-
+import { useNavigation } from '@react-navigation/native';
+import { router } from 'expo-router';
 const Stacks = createNativeStackNavigator();
 
 const RootLayout = ({ navigation }) => {
@@ -24,7 +22,7 @@ const RootLayout = ({ navigation }) => {
         if (userInfo) {
           console.log('User logged in');
           setUser(userInfo);
-          router.push('/home');
+          router.push('home'); 
         } else {
           console.log('No user info found');
         }

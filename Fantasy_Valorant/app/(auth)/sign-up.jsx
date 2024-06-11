@@ -12,7 +12,7 @@ const SignUp = () => {
   const [email, setEmail] = React.useState('');
   const [name, setName] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const [passwordconfirmation, setPasswordconfirmation] = React.useState('');
+  const [password_confirmation, setPasswordconfirmation] = React.useState('');
 
   const registerUser = async (userData) => {
     try {
@@ -25,8 +25,9 @@ const SignUp = () => {
   };
 
   const handleSubmit = () => {
-    const userData = { name, email, password, passwordconfirmation };
+    const userData = { name, email, password, password_confirmation };
     registerUser(userData);
+    router.push('sign-in');
   };
   
  
@@ -65,7 +66,7 @@ const SignUp = () => {
           <TextInput
             style={styles.input}
             onChangeText={setPasswordconfirmation}
-            value={passwordconfirmation}
+            value={password_confirmation}
             placeholder='Enter Password'
             placeholderTextColor={'#ffffff'}
           />

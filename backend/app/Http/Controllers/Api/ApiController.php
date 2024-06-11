@@ -43,7 +43,8 @@ class ApiController extends Controller
         User::create([
             "name" => $request->name,
             "email" => $request->email,
-            "password" => Hash::make($request->password)
+            "password" => Hash::make($request->password),
+            "admin" => false,
         ]);
 
         return response() -> json([
@@ -56,22 +57,23 @@ class ApiController extends Controller
     }
 
     // Login Api (POST)
-    public function login(Request $request){
+    public function login(Request $request)
+    {
         // Data validation
         $request->validate([
             "name" => "required|string",
             "password" => "required"
         ]);
-    
+
         // Checking User login
-        if(Auth::attempt([
+        if (Auth::attempt([
             "name" => $request->name,
             "password" => $request->password,
-        ])){
+        ])) {
             // User exists
             $user = Auth::user();
             $token = $user->createToken("myToken")->accessToken;
-    
+
             return response()->json([
                 "status" => true,
                 "message" => "User logged in successfully",
@@ -80,7 +82,7 @@ class ApiController extends Controller
         } else {
             return response()->json([
                 "status" => false,
-                "messages" => "Invalid login details"
+                "message" => "Invalid login details"
             ]);
         }
     }
@@ -113,17 +115,17 @@ class ApiController extends Controller
         // Data validation
         $request->validate([
             "name" => "required",
-            "country" => "required|",
-            "achievments" => "required|",
-            "team" => "required|"
+            "last_name" => "required",
+            "in_game_name" => "required",
+            "team" => "required"
         ]);
         
         //Create player
 
         Player::create([
             "name" => $request->name,
-            "country" => $request->country,
-            "achievments" => $request->achievments,
+            "last_name" => $request->last_name,
+            "in_game_name" => $request->in_game_name,
             "team" => $request->team,
         ]);
 
@@ -140,12 +142,12 @@ class ApiController extends Controller
 
         $request->validate([
             "name"=>"required",
-            "country" => "required"
+            "region" => "required"
         ]);
 
         Team::create([
             "name" => $request->name,
-            "country" => $request->country
+            "region" => $request->region
         ]);
 
         return response() ->json([

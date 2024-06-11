@@ -11,6 +11,8 @@ class CreatePlayers extends Migration
         Schema::create('players', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('last_name');
+            $table->string('in_game_name');
             $table->unsignedBigInteger('team');
             $table->foreign('team')->references('id')->on('teams')->onDelete('cascade');
             $table->timestamps();

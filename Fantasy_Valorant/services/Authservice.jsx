@@ -4,18 +4,16 @@ import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
 
 export async function login(credentials){
-    const {data} = await axios.post("http://192.168.8.203:8000/api/login", 
-      credentials,
-      {
-        headers: {
+  const {data} = await axios.post("http://192.168.8.203:8000/api/login", credentials, {
+      headers: {
           Accept: "application/json"
-        }
-      });
+      }
+  });
 
-      console.log("res", data)
+  console.log("res", data)
 
-      await setToken(data.token);
-      return data
+  await setToken(data.token);  // Assuming setToken is a function to save the token (e.g., in AsyncStorage)
+  return data;
 }
 
 export async function loaduser(){
@@ -30,19 +28,19 @@ export async function loaduser(){
     return profile;
 }
 
-export async function logout(){
+export async function logout() {
   const token = await getToken();
-  await axios.get("http://192.168.8.203:8000/api/logout",
-    {},
-    {
-      headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${token}`
-      }
+  await fetch("http://192.168.8.203:8000/api/logout", {
+    method: 'POST',
+    
+  }, {
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`
     }
-  
-  )
+  });
   console.log('Authservice worked');
   await setToken(null);
 }
+
 

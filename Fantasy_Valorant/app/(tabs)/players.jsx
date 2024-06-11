@@ -3,31 +3,40 @@ import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native'; 
-
-
+import { loaduser } from '../../services/Authservice'; // Assuming loaduser is exported from Authservice
+import { router } from 'expo-router';
 const Players = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [teamData, setTeamData] = useState([]);
+  const [isAdmin, setIsAdmin] = useState(false);
   const navigation = useNavigation();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.post('http://192.168.8.203:8000/api/getTeamInfo');
-        const data = response.data;
-        setTeamData(data.data);
+        // Fetch team data
+        const teamResponse = await axios.post('http://192.168.8.203:8000/api/getTeamInfo');
+        setTeamData(teamResponse.data.data);
+
+        // Fetch user profile
+        const profile = await loaduser();
+        setIsAdmin(profile.data.admin);
       } catch (error) {
-        console.error('Failed to fetch team data:', error);
+        console.error('Failed to fetch data:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
-    fetchData().then(() => setIsLoading(false));
+    fetchData();
   }, []);
 
   if (isLoading) {
-    <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#0f0529' }}>
-      <ActivityIndicator size="large" color="#fff" />
-    </SafeAreaView>
+    return (
+      <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#0f0529' }}>
+        <ActivityIndicator size="large" color="#fff" />
+      </SafeAreaView>
+    );
   }
 
   const handlePress = (teamId, teamName) => {
@@ -48,6 +57,14 @@ const Players = () => {
               <Text style={{ textAlign: 'center' }}>{team.name}</Text>
             </TouchableOpacity>
           ))}
+          {isAdmin && (
+            <TouchableOpacity
+              style={styles.adminButton}
+              onPress={() => router.push('createteam')}
+            >
+              <Text className=" text-lg" style={{textAlign: 'center', color: '#ffffff'}}>Create Team</Text>
+            </TouchableOpacity>
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -74,15 +91,13 @@ const styles = StyleSheet.create({
     padding: 10,
     height: 50 
   },
-  sortButton: {
+  adminButton: {
     marginTop: 50,
-    width: '30%',
+    width: '100%',
     borderRadius: 5,
     borderWidth: 1,
     height: 50,
     borderColor: 'white',
-    backgroundColor: 'white',
-    justifyContent: 'center'
   }
 });
 

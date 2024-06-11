@@ -20,8 +20,8 @@ class Player extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'country',
-        'achievments',
+        'last_name',
+        'in_game_name',
         'team',
     ];
 

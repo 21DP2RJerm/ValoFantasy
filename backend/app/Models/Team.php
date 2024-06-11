@@ -18,7 +18,7 @@ class Team extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'country',
+        'region',
     ];
 
     public function players()

@@ -20,6 +20,7 @@ Route::post("fantasyTeam", [ApiController::class, "fantasyTeam"]);
 Route::post("countsUsers" ,[ApiController::class, "countsUsers"]);
 Route::post('getTeamInfo', [TeamController::class, 'getTeamInfo']);
 Route::post('getTeamPlayers', [TeamController::class, 'getTeamPlayers']);
+Route::get('getTeamByName', [TeamController::class, 'getTeamByName']);
 
 // Protected routes
 Route::group([

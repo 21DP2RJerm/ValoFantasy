@@ -20,6 +20,11 @@ const InfoLayout = () => {
           options={{
             headerShown: false
           }} />
+          <Stack.Screen
+          name='createteam'
+          options={{
+            headerShown: false
+          }} />
       </Stack>
       <StatusBar backgroundColor='#0f0529' style="light" />
     </>
