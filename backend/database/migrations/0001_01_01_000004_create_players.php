@@ -15,6 +15,7 @@ class CreatePlayers extends Migration
             $table->string('in_game_name');
             $table->unsignedBigInteger('team');
             $table->foreign('team')->references('id')->on('teams')->onDelete('cascade');
+            $table->integer('points')->default(0);
             $table->timestamps();
         });
     }

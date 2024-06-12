@@ -12,7 +12,7 @@ const home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch user profile
+
         const profile = await loaduser();
         setIsAdmin(profile.data.admin);
       } catch (error) {

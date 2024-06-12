@@ -1,5 +1,5 @@
 
-import { View, Text, ScrollView, Image, TextInput, StyleSheet, Button, Pressable } from 'react-native'
+import { View, Text, ScrollView, Image, TextInput, StyleSheet, Button, Pressable, Alert } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import {images} from '../../constants'
@@ -17,10 +17,12 @@ const SignUp = () => {
   const registerUser = async (userData) => {
     try {
       const response = await axios.post('http://192.168.8.203:8000/api/register', userData);
-      console.log(response); // Log the full response
-      console.log(response.data); // Log the data property
+      console.log(response); 
+      console.log(response.data); 
+      Alert.alert('User created succesfully');
     } catch (error) {
-      console.error(error); // Handle error
+      console.error(error);
+      Alert.alert('Check if you registered correct credentials');
     }
   };
 

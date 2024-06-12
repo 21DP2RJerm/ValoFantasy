@@ -2,14 +2,10 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Passport\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
 
-class fantasyTeam extends Model
+class FantasyTeam extends Model
 {
     use HasFactory;
 
@@ -19,10 +15,24 @@ class fantasyTeam extends Model
         'player3',
         'player4',
         'player5',
-        'user'
+        'user',
+        'points',
     ];
 
     protected $casts = [
-        'user' => 'integer', // Casting to integer for consistency, even though it's stored as bigInteger
+        'user' => 'integer',
     ];
+
+    public function updatePoints()
+    {
+        $this->points = Player::whereIn('id', [
+            $this->player1,
+            $this->player2,
+            $this->player3,
+            $this->player4,
+            $this->player5,
+        ])->sum('points');
+
+        $this->save();
+    }
 }

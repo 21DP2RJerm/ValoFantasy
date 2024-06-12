@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\ApiController;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\StatTrackerController;
+use App\Http\Controllers\PlayerController;
 //Route::get('/user', function (Request $request) {
 //    return $request->user();
 //})->middleware('auth:sanctum');
@@ -21,7 +23,11 @@ Route::post("countsUsers" ,[ApiController::class, "countsUsers"]);
 Route::post('getTeamInfo', [TeamController::class, 'getTeamInfo']);
 Route::post('getTeamPlayers', [TeamController::class, 'getTeamPlayers']);
 Route::get('getTeamByName', [TeamController::class, 'getTeamByName']);
-
+Route::post('/stat_tracker', [ApiController::class, 'createStat']);
+Route::get('/players', [PlayerController::class, 'getPlayerByInGameName']);
+Route::post('/getFantasyTeamInfo', [ApiController::class, 'getFantasyTeamInfo']);
+Route::get('/fantasyTeam/{userId}', [ApiController::class, 'getUserFantasyTeam']);
+Route::post('getPlayerInfo', [ApiController::class, 'getPlayerInfo']);
 // Protected routes
 Route::group([
     "middleware" => ["auth:api"]

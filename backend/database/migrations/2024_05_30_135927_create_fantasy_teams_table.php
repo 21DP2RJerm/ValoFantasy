@@ -15,13 +15,14 @@ class CreateFantasyTeamsTable extends Migration
     {
         Schema::create('fantasy_teams', function (Blueprint $table) {
             $table->id();
-            // Assuming the players and users tables have an auto-incrementing ID column
+
             $table->unsignedBigInteger('player1')->nullable();
             $table->unsignedBigInteger('player2')->nullable();
             $table->unsignedBigInteger('player3')->nullable();
             $table->unsignedBigInteger('player4')->nullable();
             $table->unsignedBigInteger('player5')->nullable();
             $table->unsignedBigInteger('user')->nullable();
+            $table->integer('points')->nullable();
             $table->timestamps();
 
             // Foreign key constraints

@@ -14,11 +14,11 @@ const Players = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch team data
+
         const teamResponse = await axios.post('http://192.168.8.203:8000/api/getTeamInfo');
         setTeamData(teamResponse.data.data);
 
-        // Fetch user profile
+
         const profile = await loaduser();
         setIsAdmin(profile.data.admin);
       } catch (error) {

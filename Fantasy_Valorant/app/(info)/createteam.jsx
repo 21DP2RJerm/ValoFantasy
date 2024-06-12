@@ -26,7 +26,7 @@ const CreateTeam = () => {
 
   const handleCreatePlayer = async () => {
     try {
-      // Fetch the team ID based on the team name
+     
       const teamResponse = await axios.get('http://192.168.8.203:8000/api/getTeamByName', {
         params: { name: playerTeamName }
       });

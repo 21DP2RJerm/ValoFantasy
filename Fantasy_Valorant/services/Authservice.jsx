@@ -12,7 +12,7 @@ export async function login(credentials){
 
   console.log("res", data)
 
-  await setToken(data.token);  // Assuming setToken is a function to save the token (e.g., in AsyncStorage)
+  await setToken(data.token);  
   return data;
 }
 
