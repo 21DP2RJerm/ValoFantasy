@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-
+use App\Models\AuditLog;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -44,64 +44,74 @@ class ApiController extends Controller
             "data" => $users->toArray(), 
         ]);
     }
-    // Register Api (POST)
+    
     public function register(Request $request){
-        
-        // Data validation
+       
         $request->validate([
             "name" => "required",
             "email" => "required|email|unique:users",
             "password" => "required|confirmed",
         ]);
+    
         
-        //Create user
-
-        User::create([
+        $user = User::create([
             "name" => $request->name,
             "email" => $request->email,
             "password" => Hash::make($request->password),
             "admin" => false,
         ]);
-
-        return response() -> json([
+    
+        
+        AuditLog::create([
+            'user_id' => $user->id,
+            'action' => 'register',
+            'description' => 'New user registered: ' . $user->name,
+            'ip_address' => $request->ip(),
+        ]);
+    
+        return response()->json([
             "status" => true,
-            "message" => "User created succesfully"
+            "message" => "User created successfully"
         ]);
-
-
-
     }
 
-    // Login Api (POST)
     public function login(Request $request)
-    {
-        // Data validation
-        $request->validate([
-            "name" => "required|string",
-            "password" => "required"
+{
+    
+    $request->validate([
+        "name" => "required|string",
+        "password" => "required"
+    ]);
+
+    
+    if (Auth::attempt([
+        "name" => $request->name,
+        "password" => $request->password,
+    ])) {
+        
+        $user = Auth::user();
+        $token = $user->createToken("myToken")->accessToken;
+
+
+        AuditLog::create([
+            'user_id' => $user->id,
+            'action' => 'login',
+            'description' => 'User logged in: ' . $user->name,
+            'ip_address' => $request->ip(),
         ]);
 
-        // Checking User login
-        if (Auth::attempt([
-            "name" => $request->name,
-            "password" => $request->password,
-        ])) {
-            // User exists
-            $user = Auth::user();
-            $token = $user->createToken("myToken")->accessToken;
-
-            return response()->json([
-                "status" => true,
-                "message" => "User logged in successfully",
-                "token" => $token
-            ]);
-        } else {
-            return response()->json([
-                "status" => false,
-                "message" => "Invalid login details"
-            ]);
-        }
+        return response()->json([
+            "status" => true,
+            "message" => "User logged in successfully",
+            "token" => $token
+        ]);
+    } else {
+        return response()->json([
+            "status" => false,
+            "message" => "Invalid login details"
+        ]);
     }
+}
 
     // Profile Api (POST)
     public function profile(){

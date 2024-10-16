@@ -8,6 +8,7 @@ use Illuminate\Validation\ValidationException;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\StatTrackerController;
 use App\Http\Controllers\PlayerController;
+use App\Models\AuditLog;
 //Route::get('/user', function (Request $request) {
 //    return $request->user();
 //})->middleware('auth:sanctum');
@@ -28,6 +29,7 @@ Route::get('/players', [PlayerController::class, 'getPlayerByInGameName']);
 Route::post('/getFantasyTeamInfo', [ApiController::class, 'getFantasyTeamInfo']);
 Route::get('/fantasyTeam/{userId}', [ApiController::class, 'getUserFantasyTeam']);
 Route::post('getPlayerInfo', [ApiController::class, 'getPlayerInfo']);
+
 // Protected routes
 Route::group([
     "middleware" => ["auth:api"]
@@ -35,4 +37,7 @@ Route::group([
 
     Route::get("profile", [ApiController::class, "profile"]);
     Route::get("logout", [ApiController::class, "logout"]);
+});
+Route::get('/audit-logs', function () {
+    return AuditLog::all();
 });
