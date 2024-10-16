@@ -13,4 +13,4 @@ php artisan migrate<br>
 php artisan passport:client --personal<br>
 php artisan passport:install<br>
 php artisan key:generate<br>
-php artisan serve<br>
+php artisan serve  --port 8000
