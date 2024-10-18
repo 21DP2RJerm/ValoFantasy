@@ -138,7 +138,9 @@ class ApiController extends Controller
 
     public function createPlayer(Request $request){
         
-        // Data validation
+        
+
+
         $request->validate([
             "name" => "required",
             "last_name" => "required",
@@ -166,6 +168,8 @@ class ApiController extends Controller
     }
 
     public function createTeam(Request $request){
+
+
 
         $request->validate([
             "name"=>"required",
@@ -264,7 +268,8 @@ public function getUserFantasyTeam($userId)
     }
 }
 public function createStat(Request $request)
-{
+{   
+
     try {
         $request->validate([
             'player' => 'required|numeric|exists:players,id',
