@@ -22,13 +22,13 @@ const SignUp = () => {
       Alert.alert('User created successfully');
     } catch (error) {
       console.error(error);
-      Alert.alert('Check if you registered correct credentials');
+      Alert.alert('Check if you registered correct credentials', error);
     }
   };
 
   const handleSubmit = () => {
-    if (password.length < 7) {
-      Alert.alert('Error', 'Password must be at least 7 characters long.');
+    if (!/(?=.*[a-z])(?=.*[A-Z])(?=.{8,})/.test(password)) {
+      Alert.alert('Error', 'Password must be at least 8 characters long and have a special character.');
       return;
     }
     

@@ -38,6 +38,9 @@ Route::middleware(['throttle:100,1'])->group(function () {
         Route::get("profile", [ApiController::class, "profile"]);
         Route::get("logout", [ApiController::class, "logout"]);
     });
+    Route::get('/csrf-token', function () {
+        return response()->json(['csrf_token' => csrf_token()]);
+    });
 });
 Route::get('/audit-logs', function () {
     return AuditLog::all();

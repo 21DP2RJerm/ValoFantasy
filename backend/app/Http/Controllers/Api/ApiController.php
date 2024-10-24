@@ -49,8 +49,8 @@ class ApiController extends Controller
        
         $request->validate([
             "name" => "required",
-            "email" => "required|email|unique:users",
-            "password" => "required|confirmed",
+            "email" => "required|email|unique:users",     
+            'password' => 'required|min:8|confirmed|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.{8,})/',
         ]);
     
         

@@ -24,7 +24,17 @@ const CreateTeam = () => {
     router.push('players');
   };
 
+  const getCsrfToken = async () => {
+    try {
+      const response = await axios.get('http://192.168.8.203:8000/api/csrf-token');
+      return response.data.csrf_token;
+    } catch (error) {
+      console.error('Error fetching CSRF token:', error);
+    }
+  };
   const handleCreatePlayer = async () => {
+    const csrfToken = await getCsrfToken();
+    console.log(csrfToken);
     try {
      
       const teamResponse = await axios.get('http://192.168.8.203:8000/api/getTeamByName', {
@@ -37,13 +47,17 @@ const CreateTeam = () => {
         last_name: playerLastName,
         in_game_name: playerInGameName,
         team: teamId
+      },{
+        headers:{
+          'X-CSRF-TOKEN': csrfToken,
+        }
       });
       Alert.alert('Success', response.data.message);
     } catch (error) {
       console.error('Failed to create player:', error);
       Alert.alert('Error', 'Failed to create player');
     }
-    router.push('players');
+    
   };
 
   return (
